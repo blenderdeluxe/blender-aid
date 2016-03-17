@@ -138,6 +138,9 @@ class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         request=dict()
         res = self.path.split("/")
         #/svg/1/uses/all/detail/643
+	self.send_response(200)
+	self.send_header('Content-type','text/html')
+	self.end_headers()
         tPath = "?view="+res[3]+"&filter="+res[4]+"&display="+res[5]+"&file_id="+res[6]+"&navigation="+res[2]
         self.handleParameters(tPath, request)
         servicedependancy.handleGetSVG(self.wfile, request, session)
@@ -155,6 +158,9 @@ class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         file.close()
         template = Template(content)
         result = template.safe_substitute(session)
+	self.send_response(200)
+	self.send_header('Content-type','text/html')
+	self.end_headers()
         self.wfile.write(result.encode())
         
         
